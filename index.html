@@ -1,82 +1,53 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Car Runner PRO MAX</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farhad Dev | Portfolio</title>
     <style>
-        body { margin: 0; overflow: hidden; background: #0b0f19; font-family: sans-serif; }
-        canvas { display: block; width: 100vw; height: 100vh; }
-        #ui { position: absolute; top: 20px; width: 100%; text-align: center; color: white; font-size: 24px; pointer-events: none; }
+        body { background: #0f172a; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; }
+        header { text-align: center; margin-bottom: 40px; }
+        .project-card { background: #1e293b; padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px solid #334155; }
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
+        .btn { padding: 10px 20px; border-radius: 8px; text-decoration: none; font-weight: bold; text-align: center; flex: 1; }
+        .live { background: #38bdf8; color: #0f172a; }
+        .code { background: #475569; color: white; }
     </style>
 </head>
 <body>
+    <div class="container">
+        <header>
+            <h1>Farhad Dev</h1>
+            <p>Frontend Developer & Game Creator</p>
+        </header>
 
-    <div id="ui">Score: 0</div>
-    <canvas id="game"></canvas>
+        <div class="project-card">
+            <h3>4. Simple Calculator</h3>
+            <p>Modern glassmorphism calculator.</p>
+            <div class="btn-group">
+                <a href="YOUR_CALCULATOR_REPO_LINK" class="btn live">Live Demo</a>
+                <a href="YOUR_CALCULATOR_GITHUB_LINK" class="btn code">View Code</a>
+            </div>
+        </div>
 
-    <script>
-        const c = document.getElementById("game");
-        const ctx = c.getContext("2d");
-        c.width = window.innerWidth;
-        c.height = window.innerHeight;
+        <div class="project-card">
+            <h3>5. Runner Game</h3>
+            <p>Endless arcade running game.</p>
+            <div class="btn-group">
+                <a href="https://farhad-web-dev.github.io/Infinite-Runner-Game/" class="btn live">Live Demo</a>
+                <a href="https://github.com/farhad-web-dev/Infinite-Runner-Game" class="btn code">View Code</a>
+            </div>
+        </div>
 
-        let lane = 1; // 0=Left, 1=Center, 2=Right
-        let score = 0;
-        let speed = 8;
-        let enemies = [];
-        let gameActive = true;
-
-        function getLaneX(l) {
-            return (c.width / 3) * l + (c.width / 6) - 25;
-        }
-
-        function drawCar(x, y, color) {
-            ctx.fillStyle = color;
-            ctx.fillRect(x, y, 50, 80);
-        }
-
-        // Touch Control - 3 Lanes Logic
-        window.addEventListener("touchstart", e => {
-            let touchX = e.touches[0].clientX;
-            lane = Math.floor(touchX / (c.width / 3));
-        });
-
-        function update() {
-            if (!gameActive) return;
-            ctx.clearRect(0, 0, c.width, c.height);
-
-            // Road
-            ctx.fillStyle = "#333";
-            ctx.fillRect(0, 0, c.width, c.height);
-
-            // Enemies
-            if (Math.random() < 0.05) {
-                enemies.push({ x: getLaneX(Math.floor(Math.random()*3)), y: -100 });
-            }
-
-            enemies.forEach((e, i) => {
-                e.y += speed;
-                drawCar(e.x, e.y, "red");
-                
-                // Collision
-                let playerX = getLaneX(lane);
-                if (Math.abs(playerX - e.x) < 40 && Math.abs(c.height - 150 - e.y) < 70) {
-                    gameActive = false;
-                    alert("Game Over! Score: " + score);
-                    location.reload();
-                }
-                if (e.y > c.height) { enemies.splice(i, 1); score++; }
-            });
-
-            // Player
-            drawCar(getLaneX(lane), c.height - 150, "cyan");
-
-            document.getElementById("ui").innerText = "Score: " + score;
-            requestAnimationFrame(update);
-        }
-
-        update();
-    </script>
+        <div class="project-card">
+            <h3>6. 2D Craft Game</h3>
+            <p>Pixel sandbox building game.</p>
+            <div class="btn-group">
+                <a href="https://farhad-web-dev.github.io/2D-Craft-Mini-Game/" class="btn live">Live Demo</a>
+                <a href="https://github.com/farhad-web-dev/2D-Craft-Mini-Game" class="btn code">View Code</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
